@@ -1,7 +1,6 @@
 # =================================================================================================
-#                       TEST : implement authentification accessing
+#                       See 'roles_databases.py' for improved version
 # =================================================================================================
-# need to install psycopg2, dotenv
 
 import os
 from dataclasses import dataclass
@@ -52,7 +51,6 @@ def query_postgres(config: PostgresConfig, query: str, **pandas_kwargs: Any) -> 
 
 if __name__ == "__main__":
     config = PostgresConfig()
-    query = "SELECT * FROM classifier_data LIMIT 10;"
+    query = "SELECT * FROM classifier_data;"
     df = query_postgres(config, query)
     print(df)
-
