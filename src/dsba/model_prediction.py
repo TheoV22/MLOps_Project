@@ -4,6 +4,9 @@ from sklearn.base import ClassifierMixin
 from dsba.preprocessing import preprocess_dataframe
 
 
+# TODO: Instead of using all the classifiers by default, add commands to allow the user to choose his model, 
+# whether it is classifier or regressor
+
 def classify_dataframe(
     model: ClassifierMixin, df: pd.DataFrame, target_column: str
 ) -> pd.DataFrame:

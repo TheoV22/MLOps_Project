@@ -2,8 +2,6 @@ from pandas import DataFrame, Series
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
-# from sklearn.model_selection import train_test_split
-
 
 def split_features_and_target(
     df: DataFrame, target_column: str

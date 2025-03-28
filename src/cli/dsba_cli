@@ -77,3 +77,6 @@ def predict(model_id: str, input_file: str, output_file: str) -> None:
 
 if __name__ == "__main__":
     main()
+
+# input file : change to connect to DB and select from available files
+# output file : change to store in DB directly
