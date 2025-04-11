@@ -4,6 +4,9 @@ from typing import Any
 import requests
 import pandas as pd
 
+import os
+from dsba.simple_cache import cache_to_disk
+
 
 def load_csv_from_path(filepath: str | Path) -> pd.DataFrame:
     """
@@ -21,3 +24,22 @@ def load_csv_from_url(url: str) -> pd.DataFrame:
 
 def write_csv_to_path(df: pd.DataFrame, filepath: str | Path) -> None:
     df.to_csv(filepath, index=False)
+
+
+
+@cache_to_disk(cache_file=os.path.join("cache", "ingested_data.pkl"))
+def ingest_data(filepath: str, type: str) -> pd.DataFrame:
+    """
+    Loads a CSV file on the local filesystem into a pandas DataFrame, while caching the result
+    """
+    print(f"Loading data from {filepath}")
+    if type == "url":
+        df = load_csv_from_url(filepath)
+    elif type == "path":
+        df = load_csv_from_path(filepath)
+    else:
+        raise ValueError(f"Unknown type: {type}")
+    
+    print(f"Data loaded from {filepath}")
+
+    return df

@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from dsba.preprocessing import preprocess_dataframe, split_features_and_target
 
+# TODO : Here, we evaluate classifiers only, we can extend this to evaluate regressors as well.
 
 @dataclass
 class ClassifierEvaluationResult:
@@ -48,7 +49,6 @@ def evaluate_classifier(
 
 
 # Display functions :
-
 
 def visualize_classification_evaluation(result: ClassifierEvaluationResult):
     confusion_maxtrix_fig = plot_confusion_matrix(result)

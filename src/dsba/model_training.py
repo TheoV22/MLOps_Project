@@ -14,6 +14,8 @@ from sklearn.base import ClassifierMixin, RegressorMixin
 from dsba.model_registry import ClassifierMetadata
 from .preprocessing import split_features_and_target, preprocess_dataframe
 
+import mlflow
+from dsba.mlflow_integration import start_run, log_trained_model
 
 def train_simple_classifier(
     df: pd.DataFrame, target_column: str, model_id: str
@@ -34,4 +36,26 @@ def train_simple_classifier(
         description="",
         performance_metrics={},
     )
+    return model, metadata
+
+
+def train_with_log(df: pd.DataFrame, target_column: str, model_id: str) -> tuple[ClassifierMixin, ClassifierMetadata]:
+    # Start the MLflow run
+    run = start_run("My_Model_Training")
+    
+    # Train the model
+    model, metadata = train_simple_classifier(
+        df=df,
+        target_column=target_column,
+        model_id=model_id
+    )
+
+    # Log the trained model into MLflow
+    log_trained_model(model)
+    
+    # End the MLflow run
+    run_id = run.info.run_id
+    print(f"Training completed. Run ID: {run_id}")
+    mlflow.end_run()
+
     return model, metadata
